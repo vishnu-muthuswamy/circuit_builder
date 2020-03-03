@@ -47,8 +47,8 @@ public class Reporter {
         System.err.println( usageErrors.get( errNum ) );
         if ( line.length > 0 ) {
             System.err.print( "\tArguments read were (" );
-            for ( String arg: line ) System.out.print( ' ' + arg );
-            System.out.println( " )" );
+            for ( String arg: line ) System.err.print( ' ' + arg );
+            System.err.println( " )" );
         }
         System.exit( errNum );
     }
