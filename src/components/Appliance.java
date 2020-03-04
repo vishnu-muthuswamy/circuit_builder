@@ -15,16 +15,14 @@ public class Appliance extends Component {
     @Override
     public void engage() {
         if(isSwitchOn()) {
-            setDraw(this.rating);
-            changeDraw(getDraw());
+            changeDraw(getRating());
         }
     }
 
     @Override
     public void disengage() {
         if(isSwitchOn()) {
-            setDraw(this.rating);
-            changeDraw(-getDraw());
+            changeDraw(-getRating());
         }
     }
 
@@ -32,8 +30,7 @@ public class Appliance extends Component {
     public void turnOn() {
         super.turnOn();
         if(engaged()) {
-            setDraw(this.rating);
-            changeDraw(getDraw());
+            changeDraw(getRating());
         }
     }
 
@@ -41,8 +38,7 @@ public class Appliance extends Component {
     public void turnOff() {
         super.turnOff();
         if(engaged()) {
-            setDraw(this.rating);
-            changeDraw(-getDraw());
+            changeDraw(-getRating());
         }
     }
 

@@ -32,15 +32,16 @@ public class CircuitBreaker extends Component{
     public void turnOn() {
         super.turnOn();
         engage();
+        if(getDraw() > this.limit) {
+            turnOff();
+        }
     }
 
     @Override
     public void turnOff() {
         super.turnOff();
         if(engaged()) {
-            getSource().changeDraw(-getSource().getDraw());
             disengage();
-            getSource().changeDraw(getSource().getDraw());
         }
     }
 

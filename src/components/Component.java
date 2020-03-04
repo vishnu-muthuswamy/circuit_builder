@@ -10,6 +10,7 @@ public abstract class Component {
     private int draw;
     private int power;
     private int switchState;
+    private int blown;
     private String switchStateString;
     private Collection<Component> loads;
 
@@ -20,6 +21,7 @@ public abstract class Component {
         this.power = 0;
         this.switchState = 0;
         this.loads = new LinkedList<>();
+        this.blown = 0;
 
         if (source != null) {
             this.source.attach(this);
@@ -44,6 +46,14 @@ public abstract class Component {
     protected void changeDraw(int delta) {
         this.draw += delta;
 
+        if(this.blown == 0) {
+            if (this instanceof CircuitBreaker) {
+                if (getDraw() > ((CircuitBreaker) this).getLimit()) {
+                    this.blown = 1;
+                    turnOff();
+                }
+            }
+        }
         if(getSource() != null) {
             getSource().changeDraw(delta);
         }
@@ -93,11 +103,12 @@ public abstract class Component {
     }
 
     public void turnOn() {
+        this.blown = 0;
         this.switchState = 1;
     }
 
     public void turnOff() {
-        this.switchState = 1;
+        this.switchState = 0;
     }
 
     public boolean isSwitchOn() {
