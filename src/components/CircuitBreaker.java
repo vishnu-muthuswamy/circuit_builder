@@ -20,20 +20,16 @@ public class CircuitBreaker extends Component{
     public void turnOn() {
         super.turnOn();
         if(engaged()) {
-            for (Component load : super.getLoads()) {
-                load.engage();
-            }
+            engageLoads();
         }
     }
 
     @Override
     public void turnOff() {
         super.turnOff();
-
         if (engaged()) {
-            for (Component load : super.getLoads()) {
-                load.disengage();
-            }
+            getSource().changeDraw(-limit);
+            disengageLoads();
         }
     }
 

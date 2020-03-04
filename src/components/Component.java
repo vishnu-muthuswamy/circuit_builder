@@ -18,6 +18,10 @@ public abstract class Component {
         this.power = 0;
         this.switchState = 0;
         this.loads = new LinkedList<>();
+
+        if (source != null) {
+            this.source.attach(this);
+        }
     }
 
     public String getName() {
@@ -29,7 +33,10 @@ public abstract class Component {
     }
 
     protected void attach(Component load) {
-        loads.add(load);
+        addLoad(load);
+        if(engaged()) {
+            load.engage();
+        }
     }
 
     protected void changeDraw(int delta) {
@@ -56,23 +63,27 @@ public abstract class Component {
     }
 
     protected int getDraw() {
-        return draw;
+        return this.draw;
     }
 
     protected Collection<Component> getLoads() {
-        return loads;
+        return this.loads;
     }
 
-    protected void addLoad​(Component newLoad) {
-
+    protected void addLoad(Component newLoad) {
+        this.loads.add(newLoad);
     }
 
     protected void engageLoads() {
-
+        for(Component load: getLoads()) {
+            load.engage();
+        }
     }
 
     protected void disengageLoads() {
-
+        for(Component load: getLoads()) {
+            load.disengage();
+        }
     }
 
     public void turnOn() {
