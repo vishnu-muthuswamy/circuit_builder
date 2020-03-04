@@ -1,10 +1,16 @@
 package components;
 
 public class Appliance extends Component {
+    private final int rating;
 
-    protected Appliance(String name, Component source, int draw) {
+    protected Appliance(String name, Component source, int rating) {
         super(name, source);
-        setDraw(draw);
+        this.rating = rating;
     }
+
+    public int getRating() {
+        return this.rating;
+    }
+
 
 }
