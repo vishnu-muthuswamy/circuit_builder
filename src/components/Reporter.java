@@ -9,6 +9,7 @@ import java.util.Map;
  * output from students' work is assured.
  *
  * @author RIT CS
+ * @author Vishnu Muthuswamy
  */
 public class Reporter {
 

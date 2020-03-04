@@ -1,4 +1,4 @@
-package components.testing;
+package components;
 
 import components.*;
 
@@ -7,12 +7,13 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
- * DESCRIPTION
+ * Read config files and standard input and output the circuit simulations and their results.
  *
- * @author YOUR NAME HERE
+ * @author Vishnu Muthuswamy
  */
 public class Overload {
 
+    /** Constants representing error codes */
     public static final int BAD_ARGS = 1;
     public static final int FILE_NOT_FOUND = 2;
     public static final int BAD_FILE_FORMAT = 3;
@@ -22,11 +23,13 @@ public class Overload {
     public static final int UNKNOWN_USER_COMMAND = 7;
     public static final int UNSWITCHABLE_COMPONENT = 8;
 
+    /** Constants representing string formatting */
     private static final String WHITESPACE_REGEX = "\\s+";
     private static final String[] NO_STRINGS = new String[ 0 ];
 
     private static final String PROMPT = "? ";
 
+    /** Static method calls that produce error messages corresponding to the error codes above. */
     static {
         Reporter.addError(
                 BAD_ARGS, "Usage: java components.Overload <configFile>" );
@@ -54,13 +57,14 @@ public class Overload {
         );
     }
 
+    /**
+     * main program
+     * @param   args standard input
+     */
     public static void main( String[] args ) {
         System.out.println( "Overload Project, CS2" );
 
-    }
-
-    private static void readConfiguration( String configFileName ) {
+        HashMap<String, Component> components = new HashMap<>();
 
     }
-
 }
