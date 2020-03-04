@@ -48,6 +48,10 @@ public class Overload {
                 UNKNOWN_USER_COMMAND,
                 "Unknown user command"
         );
+        Reporter.addError(
+                UNSWITCHABLE_COMPONENT,
+                "Unswitchable component being asked to toggle."
+        );
     }
 
     public static void main( String[] args ) {

@@ -6,4 +6,16 @@ public class Outlet extends Component{
         super(name, source);
     }
 
+    @Override
+    public void engage() {
+        super.engage();
+        engageLoads();
+    }
+
+    @Override
+    public void disengage() {
+        super.disengage();
+        disengageLoads();
+    }
+
 }

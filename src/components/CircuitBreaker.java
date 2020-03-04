@@ -8,33 +8,38 @@ public class CircuitBreaker extends Component{
         this.limit = limit;
     }
 
+    public int getLimit() {
+        return this.limit;
+    }
+
     @Override
     public void engage() {
-        super.engage();
         if(isSwitchOn()) {
-            turnOn();
+            if(engaged()) {
+                super.engage();
+                engageLoads();
+            }
         }
+    }
+
+    @Override
+    public void disengage() {
+        super.disengage();
+        disengageLoads();
     }
 
     @Override
     public void turnOn() {
         super.turnOn();
-        if(engaged()) {
-            engageLoads();
-        }
+        engage();
     }
 
     @Override
     public void turnOff() {
         super.turnOff();
-        if (engaged()) {
-            getSource().changeDraw(-limit);
-            disengageLoads();
+        if(engaged()) {
+            disengage();
         }
-    }
-
-    public int getLimit() {
-        return this.limit;
     }
 
 }

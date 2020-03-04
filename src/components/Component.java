@@ -1,6 +1,7 @@
 package components;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 public abstract class Component {
@@ -9,6 +10,7 @@ public abstract class Component {
     private int draw;
     private int power;
     private int switchState;
+    private String switchStateString;
     private Collection<Component> loads;
 
     protected Component(String name, Component source) {
@@ -41,6 +43,10 @@ public abstract class Component {
 
     protected void changeDraw(int delta) {
         this.draw += delta;
+
+        if(getSource() != null) {
+            getSource().changeDraw(delta);
+        }
     }
 
     public void engage() {
@@ -52,7 +58,7 @@ public abstract class Component {
     }
 
     protected boolean engaged() {
-        if (power == 1) {
+        if (getSource().power == 1) {
             return true;
         }
         return false;
@@ -67,7 +73,7 @@ public abstract class Component {
     }
 
     protected Collection<Component> getLoads() {
-        return this.loads;
+        return Collections.unmodifiableCollection(loads);
     }
 
     protected void addLoad(Component newLoad) {
@@ -102,9 +108,37 @@ public abstract class Component {
     }
 
     public void display() {
-
+        if(this instanceof PowerSource) {
+            System.out.println("+ " + "PowerSource " + getName() + "(draw " + getDraw() + ")");
+        }
+        else if(this instanceof CircuitBreaker) {
+            if(isSwitchOn()) {
+                switchStateString = "on";
+            }
+            else {
+                switchStateString = "off";
+            }
+            System.out.println("+ " + "CircuitBreaker " + getName() + "(" + switchStateString + "; draw "
+                    + getDraw() + "; limit " + ((CircuitBreaker) this).getLimit() + ")");
+        }
+        else if(this instanceof Outlet) {
+            System.out.println("+ " + "Outlet " + getName() + "(draw " + getDraw() + ")");
+        }
+        else if(this instanceof CircuitBreaker) {
+            if(isSwitchOn()) {
+                switchStateString = "on";
+            }
+            else {
+                switchStateString = "off";
+            }
+            System.out.println("+ " + "Appliance " + getName() + "(" + switchStateString + "; rating " +
+                    ((Appliance) this).getRating() + ")");
+        }
     }
 
+    private void displayTree(int indentation, Component component) {
+        
+    }
     public String toString() {
 
     }
