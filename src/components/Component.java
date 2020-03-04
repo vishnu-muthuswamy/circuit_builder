@@ -36,7 +36,7 @@ public abstract class Component {
 
     protected void attach(Component load) {
         addLoad(load);
-        if(engaged()) {
+        if(load.engaged()) {
             load.engage();
         }
     }
@@ -112,12 +112,18 @@ public abstract class Component {
     }
 
     private void displayTree(int indentation, Component component) {
-        String treeString = "+ " + this.toString();
+        String treeString = "+ " + component.toString();
 
-        System.out.println(treeString.indent(3*indentation));
+        indentation += 3;
+        System.out.print(treeString.indent(indentation));
 
-        for(Component load: getLoads()) {
-            displayTree(indentation++, load);
+        for(Component load: component.getLoads()) {
+            if(load == null) {
+                break;
+            }
+            else {
+                displayTree(indentation, load);
+            }
         }
     }
 

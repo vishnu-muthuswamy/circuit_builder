@@ -2,7 +2,7 @@ package components;
 
 public class PowerSource extends Component{
 
-    protected PowerSource(String name) {
+    public PowerSource(String name) {
         super(name, null);
     }
 

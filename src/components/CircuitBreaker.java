@@ -3,7 +3,7 @@ package components;
 public class CircuitBreaker extends Component{
     private final int limit;
 
-    protected CircuitBreaker(String name, Component source, int limit) {
+    public CircuitBreaker(String name, Component source, int limit) {
         super(name, source);
         this.limit = limit;
     }
