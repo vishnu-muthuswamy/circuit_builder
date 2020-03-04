@@ -108,39 +108,22 @@ public abstract class Component {
     }
 
     public void display() {
-        if(this instanceof PowerSource) {
-            System.out.println("+ " + "PowerSource " + getName() + "(draw " + getDraw() + ")");
-        }
-        else if(this instanceof CircuitBreaker) {
-            if(isSwitchOn()) {
-                switchStateString = "on";
-            }
-            else {
-                switchStateString = "off";
-            }
-            System.out.println("+ " + "CircuitBreaker " + getName() + "(" + switchStateString + "; draw "
-                    + getDraw() + "; limit " + ((CircuitBreaker) this).getLimit() + ")");
-        }
-        else if(this instanceof Outlet) {
-            System.out.println("+ " + "Outlet " + getName() + "(draw " + getDraw() + ")");
-        }
-        else if(this instanceof CircuitBreaker) {
-            if(isSwitchOn()) {
-                switchStateString = "on";
-            }
-            else {
-                switchStateString = "off";
-            }
-            System.out.println("+ " + "Appliance " + getName() + "(" + switchStateString + "; rating " +
-                    ((Appliance) this).getRating() + ")");
-        }
+        displayTree(0, this);
     }
 
     private void displayTree(int indentation, Component component) {
-        
-    }
-    public String toString() {
+        String treeString = "+ " + this.toString();
 
+        System.out.println(treeString.indent(3*indentation));
+
+        for(Component load: getLoads()) {
+            displayTree(indentation++, load);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return Reporter.identify(this);
     }
 
 }

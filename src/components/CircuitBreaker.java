@@ -38,7 +38,9 @@ public class CircuitBreaker extends Component{
     public void turnOff() {
         super.turnOff();
         if(engaged()) {
+            getSource().changeDraw(-getSource().getDraw());
             disengage();
+            getSource().changeDraw(getSource().getDraw());
         }
     }
 
